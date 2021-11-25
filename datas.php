@@ -1,7 +1,5 @@
 <?php
 
-$GLOBALS['leapYearLength'] = 0;
-
 function isLeapYear($year){
 	
 	if($year % 100 == 0){
@@ -22,11 +20,6 @@ function isLeapYear($year){
 	return false;
 }
 
-//function yearsToDays($year){
-//	
-//	return ($year % 4 == 0) ? 366 : 365;
-//}
-
 function monthsToDays($month, $year){
 	
 	$result = 31; 
@@ -37,68 +30,16 @@ function monthsToDays($month, $year){
 			$result = isLeapYear($year) ? 29 : 28;
 			break;
 
-		case 4:// abril
-		case 6:// junho
-		case 9:// junho
+		case 4:// Abril
+		case 6:// Junho
+		case 9:// Setembro	
+		case 11:// novembro
 			$result = 30;
 			break;
 	}
 		
 	return $result;
 }
-
-//function getMonthsRange($begin = 1, $end = 3){
-//	
-//	$array = array();
-//	
-//	for($i = $begin; $i <= $end; $i++){
-//		
-//		if($i == 12){
-//			
-//			$i = 1;
-//		}
-//		
-//		$array[]  = $i;
-//	}
-//	
-//	printf("\tgetMonthsRange: %s\n", implode(', ', $array));
-//	
-//	array_shift($array);
-//	array_pop($array);
-//	
-//	return $array;
-//}
-
-//function getYearsRange($begin = 1, $end = 3){
-//	
-//	$array = range($begin, $end);
-//	
-//	foreach($array as $year){
-//		
-//		if($year % 100 == 0){
-//			
-//			if($year % 400 == 0){
-//				
-//				$GLOBALS['leapYearLength']++;
-//			}
-//		}
-//		else {
-//		
-//			if($year % 4 == 0){
-//
-//				$GLOBALS['leapYearLength']++;
-//			}
-//		}
-//	}
-//	
-//	
-//	
-//	array_shift($array);
-//	array_pop($array);
-//	print "\t".__FUNCTION__.': '.implode(', ', $array).PHP_EOL;
-//	
-//	return $array;
-//}
 
 /**
 * Calcula o numero de dias entre 2 datas.
@@ -109,8 +50,8 @@ function monthsToDays($month, $year){
 **/
 function calculaDias($dataInicial, $dataFinal) {
 
-	printf("\tbegin: %s\n", $dataInicial);
-	printf("\tend: %s\n", $dataFinal);
+	//printf("\tbegin: %s\n", $dataInicial);
+	//printf("\tend: %s\n", $dataFinal);
 	
 	$result = 0;
 	
@@ -148,21 +89,14 @@ function calculaDias($dataInicial, $dataFinal) {
 	}
 	else {
 
-		printf("\tlastMonth: %s\n", $lastMonth);
-		printf("\tfirstMonth: %s\n", $firstMonth);
+		//printf("\tlastMonth: %s\n", $lastMonth);
+		//printf("\tfirstMonth: %s\n", $firstMonth);
 		
-		
-		
-		// ano bisexto
 		$result += monthsToDays($firstMonth, $beginYear) - $beginDay;
 
 		//printf("\tbegin day: %s\n", var_export($result, true));
 		
-		if($firstMonth != $lastMonth){
-			$result += $endDay;
-		}
-		
-
+		$result += $endDay;
 
 		//printf("\tend day: %s\n", var_export($endDay, true));
 	
@@ -182,112 +116,8 @@ function calculaDias($dataInicial, $dataFinal) {
 		}
 	}
 	
-	var_export($result);
-	return $result;
-	
+	return $result;	
 }
-//
-//function _calculaDias($dataInicial, $dataFinal) {
-//	
-//
-//	$result = 0;
-//	$leapYearLength = 0;
-//	$yearsLength = 1;
-//	
-//	list($beginYear, $beginMonth, $beginDay) = explode('-', $dataInicial);
-//
-//	list($endYear, $endMonth, $endDay) = explode('-', $dataFinal);
-//	
-//	printf("\tbegin: %s\n", $dataInicial);
-//	printf("\tend: %s\n", $dataFinal);
-//	
-//	// Quando é o mesmo ano não precisa calcular o intervalo
-//	if($beginYear != $endYear){
-//		
-//		$yearsLength = count(range($beginYear, $endYear));
-//		
-//		printf("\tyearsLength: %s\n", $yearsLength);
-//		
-//		// Calculo de um ano para o outro
-//		if($yearsLength > 2){
-//						
-//			// Retorna os anos dentro do intervalo fechados
-//			$years = getYearsRange($beginYear, $endYear);
-//
-//			foreach($years as $year){
-//				
-//				// Transforma o ano em dias
-//				$result += yearsToDays($year);
-//			}
-//		}
-//		
-//		printf("\tyear result: %s\n", $result);
-//	}
-//	
-//	// Quando é o mesmo mês não precisa calcular o intervalo
-//	if($beginMonth != $endMonth){
-//		
-//		// Calcula o números de dias até o final do mês
-//		$result += (monthsToDays($beginMonth) - $beginDay ) + $endDay;
-//		
-//		// Retorna os meses dentro de intervalo fechado
-//		foreach(getMonthsRange($beginMonth, $endMonth) as $month){
-//			 
-//			// Transforma o mês em dias
-//			$result += monthsToDays($month);
-//		}
-//		
-//
-////		if($yearsLength == 2 || $yearsLength == 3){
-////
-////			//$result += yearsToDays($beginYear);
-////			$result += yearsToDays($endYear);
-////		}
-//		
-//		printf("\tmouth result: %s\n", $result);
-//	}
-//	
-//	if($beginMonth == $endMonth){
-//		
-//		if($beginDay == $endDay){
-//			
-//			if($yearsLength == 1){
-//			
-//				$result += yearsToDays($beginYear);
-//			}
-//			if($yearsLength == 2 || $yearsLength == 3){
-//				
-//				//$result += yearsToDays($beginYear);
-//				$result += yearsToDays($endYear);
-//			}
-//			
-//			$result -= $GLOBALS['leapYearLength'];
-//		}
-//		else {
-//			
-//			$result += $endDay - $beginDay;
-//		}		
-//	}
-//	
-//
-//	
-//	return $result;
-//
-//	
-//	/*
-//		- Setembro, abril, junho e novembro tem 30 dias, todos os outros meses tem 31 exceto fevereiro que tem 28, exceto nos anos bissextos nos quais ele tem 29.
-//		- Os anos bissexto tem 366 dias e os demais 365.
-//		- Todo ano divisivel por 4 e um ano bissexto.
-//		- A regra acima não e valida para anos divisiveis por 100. 
-//	 		Estes anos devem ser divisiveis por 400 para serem anos bissextos. 
-//			Assim, o ano 1700, 1800, 1900 e 2100 nao sao bissextos, mas 2000 e bissexto.
-//		- Não e permitido o uso de classes e funcoes de data da linguagem (DateTime, mktime, strtotime, etc).
-//	*/
-//	
-//
-//}
-//
-
 
 
 /***** Teste 01 *****/
